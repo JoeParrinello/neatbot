@@ -13,12 +13,12 @@ bot = Cinch::Bot.new do
     end
 
     on :channel, /\b[Nn][Ee][Aa][Tt]\b/ do |m|
-        if (m.user.nick!="NeatBot"){
+        if m.user.nick!="NeatBot"
             now = Time.now
             daysSince = (now - dayLastSaid).to_i / (24 * 60 * 60)
             dayLastSaid = now
             m.reply "It has been #{daysSince} days since the last neat. #{m.user.nick} fucked it up."
-        }
+        end
     end
 end
 
