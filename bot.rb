@@ -16,8 +16,10 @@ bot = Cinch::Bot.new do
         if m.user.nick!="NeatBot"
             now = Time.now
             daysSince = (now - dayLastSaid).to_i / (24 * 60 * 60)
+            hoursSince = ((now - dayLastSaid).to_i / (24 * 60)) - (daysSince * 24)
+            minutesSince = ((now - dayLastSaid).to_i / (24)) - (daysSince * 24 * 60) - (hoursSince * 60)
             dayLastSaid = now
-            m.reply "It has been #{daysSince} days since the last neat. #{m.user.nick} fucked it up."
+            m.reply "It has been #{daysSince} days, #{hoursSince} hours, and #{minutesSince} minutes since the last neat. #{m.user.nick} fucked it up."
         end
     end
 end
