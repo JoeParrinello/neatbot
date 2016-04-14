@@ -10,7 +10,7 @@ bot = Cinch::Bot.new do
         raise "Environment Variable for Channel not Set." unless ENV.has_key?("channel")
         c.server   = ENV['server']
         c.channels = [ENV['channel']]
-        c.nick = "NeatBoot"
+        c.nick = "NeatBot"
     end
 
     on :channel, /\b[Nn][Ee][Aa][Tt]\b/ do |m|
