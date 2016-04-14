@@ -1,5 +1,6 @@
 require 'time'
 require 'cinch'
+require 'time_diff'
 
 dayLastSaid = Time.now
 
@@ -9,17 +10,15 @@ bot = Cinch::Bot.new do
         raise "Environment Variable for Channel not Set." unless ENV.has_key?("channel")
         c.server   = ENV['server']
         c.channels = [ENV['channel']]
-        c.nick = "NeatBot"
+        c.nick = "NeatBoot"
     end
 
     on :channel, /\b[Nn][Ee][Aa][Tt]\b/ do |m|
         if m.user.nick!="NeatBot"
             now = Time.now
-            daysSince = (now - dayLastSaid).to_i / (24 * 60 * 60)
-            hoursSince = ((now - dayLastSaid).to_i / (24 * 60)) - (daysSince * 24)
-            minutesSince = ((now - dayLastSaid).to_i / (24)) - (daysSince * 24 * 60) - (hoursSince * 60)
+            time_diff = Time.diff(dayLastSaid, now, '%y, %M, %w, %d, %H, %M, and %S')
             dayLastSaid = now
-            m.reply "It has been #{daysSince} days, #{hoursSince} hours, and #{minutesSince} minutes since the last neat. #{m.user.nick} fucked it up."
+            m.reply "It has been #{time_diff[:diff]} since the last neat. #{m.user.nick} fucked it up."
         end
     end
 end
