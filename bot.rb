@@ -16,7 +16,7 @@ bot = Cinch::Bot.new do
     on :channel, /\b[Nn][Ee][Aa][Tt]\b/ do |m|
         if m.user.nick!="NeatBot"
             now = Time.now
-            time_diff = Time.diff(dayLastSaid, now, '%y, %M, %w, %d, %H, %M, and %S')
+            time_diff = Time.diff(dayLastSaid, now, '%y, %M, %w, %d, %H, %N, and %S')
             dayLastSaid = now
             m.reply "It has been #{time_diff[:diff]} since the last neat. #{m.user.nick} fucked it up."
         end
